@@ -8,4 +8,4 @@ List
 Set
 Map
 Tree
-Rjynhjkmyst djghjcs
+Контрольные вопросы
