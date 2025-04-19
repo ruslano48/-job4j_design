@@ -10,3 +10,7 @@ Set
 Map
 Tree
 Контрольные вопросы
+Настройка окружения для Maven
+Подключение библиотеки AssertJ
+FlatMap для Iterator<Iterator>
+Создание проекта через maven
