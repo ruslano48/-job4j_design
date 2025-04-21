@@ -71,7 +71,7 @@ class BoxTest {
     @Test
     void whenCubeWithEdge3ThenCorrectArea() {
         Box box = new Box(8, 3);
-        double expected = 6 * 9; // 6 * a^2, a = 3
+        double expected = 6 * 9;
         assertThat(box.getArea()).isCloseTo(expected, within(0.0001));
     }
 }
