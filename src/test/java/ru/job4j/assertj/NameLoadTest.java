@@ -1,6 +1,9 @@
 package ru.job4j.assertj;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class NameLoadTest {
@@ -34,5 +37,12 @@ class NameLoadTest {
         assertThatThrownBy(() -> nameLoad.parse("keyvalue"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("does not contain the symbol '='");
+    }
+    @Test
+    void whenMapIsEmptyThenThrowsIllegalStateException() {
+        NameLoad nameLoad = new NameLoad();
+        assertThatThrownBy(nameLoad::getMap)
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining("collection contains no data");
     }
 }
