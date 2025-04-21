@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SimpleConvertTest {
 
@@ -26,7 +26,6 @@ class SimpleConvertTest {
                 .containsExactly(first, second, third);
     }
 
-
     @Test
     void toList() {
         SimpleConvert convert = new SimpleConvert();
@@ -41,7 +40,6 @@ class SimpleConvertTest {
                 .isNotEmpty()
                 .containsExactly(first, second, third, fourth)
                 .doesNotContain("Mary", "Jone");
-
     }
 
     @Test
