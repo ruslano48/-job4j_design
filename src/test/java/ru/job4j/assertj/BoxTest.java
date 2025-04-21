@@ -3,6 +3,7 @@ package ru.job4j.assertj;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.within;
 
 class BoxTest {
     @Test
@@ -52,5 +53,25 @@ class BoxTest {
     void whenCubeNotIsExist() {
         Box box = new Box(1, 3);
         assertThat(box.isExist()).isFalse();
+    }
+
+    @Test
+    void whenEdgeIsZeroThenAreaIsZero() {
+        Box box = new Box(4, 0);
+        assertThat(box.getArea()).isEqualTo(0);
+    }
+
+    @Test
+    void whenEdgeIsNegativeThenAreaIsZero() {
+        Box box = new Box(8, -1);
+        assertThat(box.getArea()).isEqualTo(0);
+
+    }
+
+    @Test
+    void whenCubeWithEdge3ThenCorrectArea() {
+        Box box = new Box(8, 3);
+        double expected = 6 * 9; // 6 * a^2, a = 3
+        assertThat(box.getArea()).isCloseTo(expected, within(0.0001));
     }
 }
