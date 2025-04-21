@@ -29,4 +29,28 @@ class BoxTest {
         Box box = new Box(4, 4);
         assertThat(box.whatsThis()).isEqualTo("Tetrahedron");
     }
+
+    @Test
+    void whenCubeThenVerticesAre8() {
+        Box box = new Box(8, 2);
+        assertThat(box.getNumberOfVertices()).isEqualTo(8);
+    }
+
+    @Test
+    void whenTetrahedronThenVerticesAre4() {
+        Box box = new Box(4, 2);
+        assertThat(box.getNumberOfVertices()).isEqualTo(4);
+    }
+
+    @Test
+    void whenCubeIsExist() {
+        Box box = new Box(8, 2);
+        assertThat(box.isExist()).isTrue();
+    }
+
+    @Test
+    void whenCubeNotIsExist() {
+        Box box = new Box(1, 3);
+        assertThat(box.isExist()).isFalse();
+    }
 }
