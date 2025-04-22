@@ -44,4 +44,12 @@ class NameLoadTest {
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("collection contains no data");
     }
+
+    @Test
+    void whenNamesArrayIsEmpty() {
+        NameLoad nameLoad = new NameLoad();
+        assertThatThrownBy(() -> nameLoad.parse())
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("Names array is empty");
+    }
 }
