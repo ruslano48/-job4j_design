@@ -10,8 +10,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     @Override
     public void add(T model) {
         storage.putIfAbsent(model.getId(), model);
-        }
-
+    }
 
     @Override
     public boolean replace(String id, T model) {
