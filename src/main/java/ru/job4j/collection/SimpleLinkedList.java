@@ -14,6 +14,7 @@ public class SimpleLinkedList<E> implements SimpleLinked<E> {
 
     @Override
     public void add(E value) {
+
         Node<E> newNode = new Node<>(value, null);
         if (head == null) {
             head = newNode;
