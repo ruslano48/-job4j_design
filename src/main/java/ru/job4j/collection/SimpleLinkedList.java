@@ -20,10 +20,10 @@ public class SimpleLinkedList<E> implements SimpleLinked<E> {
             head = newNode;
         tail.next = newNode;
     }
+
         tail = newNode;
         size++;
         modCount++;
-
     }
 
     @Override
