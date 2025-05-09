@@ -1,56 +1,42 @@
 package ru.job4j.collection;
 
 import java.util.NoSuchElementException;
+import java.util.NoSuchElementException;
 
 public class SimpleQueue<T> {
     private final SimpleStack<T> input = new SimpleStack<>();
     private final SimpleStack<T> output = new SimpleStack<>();
-    private int size;
-    private int modCount;
-
-    public void push(T value) {
-        input.push(value);
-        size++;
-        modCount++;
-    }
+    private int inputCount = 0;  // счетчик элементов во входном стеке
+    private int outputCount = 0; // счетчик элементов в выходном стеке
 
     public T poll() {
-        if (size == 0) {
+        if (isEmpty()) {
             throw new NoSuchElementException("Queue is empty");
         }
 
-        if (!hasElementsInOutput()) {
+        if (outputCount == 0) {
             transferInputToOutput();
         }
 
         T value = output.pop();
-        size--;
-        modCount++;
+        outputCount--;
         return value;
     }
 
-    private boolean hasElementsInOutput() {
-        try {
-
-            T temp = output.pop();
-            output.push(temp);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
+    public void push(T value) {
+        input.push(value);
+        inputCount++;
     }
 
     private void transferInputToOutput() {
-        while (true) {
-            try {
-                output.push(input.pop());
-            } catch (NoSuchElementException e) {
-                break;
-            }
+        while (inputCount > 0) {
+            output.push(input.pop());
+            inputCount--;
+            outputCount++;
         }
     }
 
-    public int size() {
-        return size;
+    private boolean isEmpty() {
+        return inputCount + outputCount == 0;
     }
 }
