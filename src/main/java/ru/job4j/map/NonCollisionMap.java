@@ -17,7 +17,7 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         if (count >= capacity * LOAD_FACTOR) {
             expand();
         }
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = indexByKey(key);
         if (table[index] != null) {
             return false;
         }
@@ -29,16 +29,19 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
 
     @Override
     public V get(K key) {
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = indexByKey(key);
         MapEntry<K, V> entry = table[index];
-        return entry != null && Objects.equals(entry.key, key) ? entry.value : null;
+        if (entry != null && isKeysEqual(entry.key, key)) {
+            return entry.value;
+        }
+        return null;
     }
 
     @Override
     public boolean remove(K key) {
-        int index = indexFor(hash(Objects.hashCode(key)));
+        int index = indexByKey(key);
         MapEntry<K, V> entry = table[index];
-        if (entry != null && Objects.equals(entry.key, key)) {
+        if (entry != null && isKeysEqual(entry.key, key)) {
             table[index] = null;
             count--;
             modCount++;
@@ -82,12 +85,24 @@ public class NonCollisionMap<K, V> implements SimpleMap<K, V> {
         return hash & (capacity - 1);
     }
 
+    // Новый приватный метод для расчета индекса по ключу
+    private int indexByKey(K key) {
+        return indexFor(hash(Objects.hashCode(key)));
+    }
+
+    // Новый приватный метод для корректного сравнения ключей
+    private boolean isKeysEqual(K k1, K k2) {
+        int h1 = Objects.hashCode(k1);
+        int h2 = Objects.hashCode(k2);
+        return h1 == h2 && Objects.equals(k1, k2);
+    }
+
     private void expand() {
         capacity *= 2;
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (MapEntry<K, V> entry : table) {
             if (entry != null) {
-                int index = indexFor(hash(Objects.hashCode(entry.key)));
+                int index = indexByKey(entry.key);
                 newTable[index] = entry;
             }
         }
